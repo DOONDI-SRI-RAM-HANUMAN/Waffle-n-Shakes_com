@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Waffle 'n' Shakes — Luxury Waffles & Shakes in Vijayawada</title>
+<meta name="description" content="Waffle 'n' Shakes — Freshly prepared full cake waffles, thick shakes, mocktails and combos in Governor Peta, Vijayawada. Premium chocolate desserts made with love." />
+<meta name="keywords" content="Waffle n Shakes, Vijayawada waffles, Governor Peta desserts, chocolate waffles, milkshakes Vijayawada, mocktails, Andhra Pradesh cafe" />
+<meta name="author" content="Waffle 'n' Shakes" />
+<link rel="canonical" href="https://waffleandshakes.example.com/" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Waffle 'n' Shakes — Luxury Waffles & Shakes in Vijayawada" />
+<meta property="og:description" content="Freshly prepared waffles, thick shakes and refreshing mocktails served daily in Vijayawada." />
+<meta property="og:type" content="restaurant" />
+<meta property="og:url" content="https://waffleandshakes.example.com/" />
+<meta property="og:image" content="https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?w=1200&q=80" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Waffle 'n' Shakes — Vijayawada" />
+<meta name="twitter:description" content="Premium waffles, thick shakes & mocktails in Governor Peta, Vijayawada." />
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?w=1200&q=80" />
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧇%3C/text%3E%3C/svg%3E" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Waffle 'n' Shakes",
+  "image": "https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?w=1200&q=80",
+  "servesCuisine": ["Desserts", "Waffles", "Shakes", "Mocktails"],
+  "priceRange": "₹₹",
+  "telephone": "+91-9515295901",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Govindarajulu Street, Governor Peta",
+    "addressLocality": "Vijayawada",
+    "addressRegion": "Andhra Pradesh",
+    "postalCode": "520002",
+    "addressCountry": "IN"
+  },
+  "url": "https://waffleandshakes.example.com/",
+  "sameAs": ["https://www.instagram.com/waffle_n_shakes0"]
+}
+</script>
+
+<style>
+  :root{
+    --primary:#3B2314;
+    --secondary:#5A3722;
+    --cream:#FFF7EE;
+    --gold:#F5C542;
+    --chocolate:#2B170F;
+    --white:#FFFFFF;
+    --accent:#D68A2C;
+    --bg:var(--cream);
+    --text:var(--chocolate);
+    --card:rgba(255,255,255,.7);
+    --glass:rgba(255,247,238,.55);
+    --shadow:0 20px 60px rgba(43,23,15,.15);
+  }
+  .dark{
+    --bg:#160B06;
+    --text:#FFF7EE;
+    --card:rgba(59,35,20,.55);
+    --glass:rgba(43,23,15,.55);
+    --cream:#2a1810;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+    line-height:1.6;
+    transition:background .4s,color .4s;
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:700;line-height:1.15}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--accent),var(--primary));border-radius:10px}
+
+  /* Selection */
+  ::selection{background:var(--gold);color:var(--chocolate)}
+
+  /* Custom cursor */
+  .cursor-glow{
+    position:fixed;width:400px;height:400px;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,197,66,.15),transparent 60%);
+    pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+    transition:width .3s,height .3s;mix-blend-mode:screen;
+    display:none;
+  }
+  @media(hover:hover){.cursor-glow{display:block}}
+
+  /* Loader */
+  #loader{
+    position:fixed;inset:0;z-index:99999;
+    background:radial-gradient(circle at center,var(--secondary),var(--chocolate));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transition:opacity .8s,visibility .8s;
+  }
+  #loader.hide{opacity:0;visibility:hidden}
+  .waffle-loader{font-size:80px;animation:spin 2s linear infinite;filter:drop-shadow(0 10px 30px rgba(245,197,66,.5))}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .drip{
+    width:6px;height:40px;background:linear-gradient(var(--gold),var(--accent));
+    border-radius:0 0 10px 10px;margin-top:10px;
+    animation:drip 1.5s ease-in-out infinite;
+  }
+  @keyframes drip{0%,100%{height:20px}50%{height:60px}}
+  .loader-bar{margin-top:30px;width:220px;height:4px;background:rgba(255,255,255,.15);border-radius:10px;overflow:hidden}
+  .loader-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--accent));animation:load 2.2s ease forwards}
+  @keyframes load{to{width:100%}}
+  .loader-text{color:var(--cream);margin-top:20px;font-family:'Playfair Display',serif;letter-spacing:4px;font-size:14px}
+
+  /* Navbar */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:20px 6%;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:all .4s;
+    backdrop-filter:blur(0);
+  }
+  nav.scrolled{
+    padding:12px 6%;
+    background:var(--glass);
+    backdrop-filter:blur(20px);
+    box-shadow:0 10px 40px rgba(43,23,15,.15);
+    border-bottom:1px solid rgba(245,197,66,.15);
+  }
+  .logo{
+    font-family:'Playfair Display',serif;font-weight:900;font-size:24px;
+    color:var(--gold);letter-spacing:1px;display:flex;align-items:center;gap:10px;
+  }
+  .logo i{color:var(--accent)}
+  nav.scrolled .logo{color:var(--primary)}
+  .dark nav.scrolled .logo{color:var(--gold)}
+  .nav-links{display:flex;gap:32px;align-items:center;list-style:none}
+  .nav-links a{
+    font-size:14px;font-weight:500;color:var(--cream);
+    position:relative;transition:color .3s;
+  }
+  nav.scrolled .nav-links a{color:var(--text)}
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-6px;left:0;width:0;height:2px;
+    background:var(--gold);transition:width .3s;
+  }
+  .nav-links a:hover::after{width:100%}
+  .nav-links a:hover{color:var(--gold)}
+  .btn-order{
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    color:var(--chocolate);padding:10px 22px;border-radius:50px;
+    font-weight:600;font-size:13px;cursor:pointer;border:none;
+    box-shadow:0 8px 25px rgba(245,197,66,.4);
+    transition:transform .3s,box-shadow .3s;
+  }
+  .btn-order:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(245,197,66,.6)}
+  .theme-toggle{
+    background:transparent;border:1px solid rgba(255,255,255,.3);
+    color:var(--cream);width:38px;height:38px;border-radius:50%;
+    cursor:pointer;display:grid;place-items:center;transition:.3s;
+  }
+  nav.scrolled .theme-toggle{color:var(--text);border-color:rgba(43,23,15,.2)}
+  .theme-toggle:hover{background:var(--gold);color:var(--chocolate);border-color:var(--gold)}
+  .menu-toggle{display:none;background:none;border:none;color:var(--cream);font-size:24px;cursor:pointer}
+  nav.scrolled .menu-toggle{color:var(--text)}
+
+  @media(max-width:900px){
+    .nav-links{
+      position:fixed;top:70px;right:-100%;width:80%;max-width:320px;
+      height:calc(100vh - 70px);
+      background:var(--glass);backdrop-filter:blur(30px);
+      flex-direction:column;padding:40px;gap:24px;
+      transition:right .4s;border-left:1px solid rgba(245,197,66,.2);
+    }
+    .nav-links.open{right:0}
+    .nav-links a{color:var(--text);font-size:18px}
+    .menu-toggle{display:block}
+  }
+
+  /* HERO */
+  .hero{
+    min-height:100vh;position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:
+      radial-gradient(circle at 20% 30%,rgba(214,138,44,.25),transparent 40%),
+      radial-gradient(circle at 80% 70%,rgba(245,197,66,.2),transparent 40%),
+      linear-gradient(135deg,var(--chocolate),var(--primary) 60%,var(--secondary));
+    color:var(--cream);text-align:center;padding:120px 6% 80px;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><path d='M0 0h30v30H0zM30 30h30v30H30z' fill='%23ffffff' opacity='0.02'/></svg>");
+    opacity:.5;
+  }
+  .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .particle{
+    position:absolute;border-radius:50%;
+    background:radial-gradient(circle,var(--accent),var(--primary));
+    opacity:.4;animation:float linear infinite;
+  }
+  @keyframes float{
+    0%{transform:translateY(100vh) scale(0);opacity:0}
+    10%{opacity:.6}
+    90%{opacity:.6}
+    100%{transform:translateY(-10vh) scale(1);opacity:0}
+  }
+  .hero-content{position:relative;z-index:2;max-width:1000px}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 18px;border-radius:50px;
+    background:rgba(245,197,66,.15);border:1px solid rgba(245,197,66,.3);
+    color:var(--gold);font-size:12px;font-weight:500;letter-spacing:2px;
+    text-transform:uppercase;margin-bottom:24px;
+    backdrop-filter:blur(10px);
+  }
+  .hero h1{
+    font-size:clamp(42px,7vw,88px);font-weight:900;
+    background:linear-gradient(135deg,#fff,var(--gold),var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:20px;letter-spacing:-1px;
+  }
+  .hero p{
+    font-size:clamp(15px,1.6vw,18px);max-width:640px;margin:0 auto 40px;
+    color:rgba(255,247,238,.85);
+  }
+  .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    padding:16px 32px;border-radius:50px;font-weight:600;font-size:14px;
+    cursor:pointer;border:none;position:relative;overflow:hidden;
+    transition:transform .3s,box-shadow .3s;display:inline-flex;align-items:center;gap:10px;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    color:var(--chocolate);box-shadow:0 15px 40px rgba(245,197,66,.4);
+  }
+  .btn-primary:hover{transform:translateY(-4px);box-shadow:0 25px 50px rgba(245,197,66,.6)}
+  .btn-outline{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px)}
+  .btn-outline:hover{background:rgba(255,255,255,.18);transform:translateY(-4px)}
+  .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:ripple .6s linear;pointer-events:none}
+  @keyframes ripple{to{transform:scale(4);opacity:0}}
+
+  .floating-waffle{
+    position:absolute;font-size:60px;opacity:.15;
+    animation:floatBob 6s ease-in-out infinite;
+  }
+  @keyframes floatBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-30px) rotate(10deg)}}
+
+  .scroll-indicator{
+    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+    color:var(--gold);font-size:12px;letter-spacing:3px;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    animation:bounce 2s infinite;
+  }
+  .scroll-indicator .line{width:2px;height:40px;background:linear-gradient(var(--gold),transparent)}
+  @keyframes bounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+  /* Sections */
+  section{padding:100px 6%;position:relative}
+  .section-title{text-align:center;margin-bottom:60px}
+  .section-title .eyebrow{
+    color:var(--accent);font-size:13px;letter-spacing:4px;text-transform:uppercase;
+    font-weight:600;margin-bottom:12px;display:inline-block;
+  }
+  .section-title h2{
+    font-size:clamp(32px,5vw,54px);color:var(--text);
+    background:linear-gradient(135deg,var(--primary),var(--accent));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .dark .section-title h2{background:linear-gradient(135deg,var(--gold),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .section-title p{max-width:600px;margin:16px auto 0;opacity:.75}
+
+  /* About */
+  .about{background:var(--bg)}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+    max-width:1200px;margin:0 auto;
+  }
+  .about-img{
+    position:relative;border-radius:24px;overflow:hidden;
+    box-shadow:var(--shadow);aspect-ratio:4/5;
+  }
+  .about-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+  .about-img:hover img{transform:scale(1.08)}
+  .about-img::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(45deg,transparent 60%,rgba(245,197,66,.2));
+  }
+  .about-badge{
+    position:absolute;bottom:20px;left:20px;
+    background:var(--glass);backdrop-filter:blur(20px);
+    padding:16px 22px;border-radius:16px;color:var(--text);
+    border:1px solid rgba(245,197,66,.3);
+  }
+  .about-badge strong{display:block;font-size:24px;color:var(--accent);font-family:'Playfair Display'}
+  .about-content h3{font-size:clamp(28px,3.5vw,42px);margin-bottom:20px}
+  .about-content p{opacity:.8;margin-bottom:20px}
+  .about-features{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+  .about-feature{display:flex;gap:12px;align-items:flex-start}
+  .about-feature i{color:var(--accent);font-size:20px;margin-top:2px}
+  .about-feature strong{display:block;font-family:'Playfair Display'}
+  @media(max-width:800px){.about-grid{grid-template-columns:1fr}}
+
+  /* Menu */
+  .menu{background:linear-gradient(180deg,var(--bg),rgba(214,138,44,.05))}
+  .tabs{display:flex;justify-content:center;gap:12px;margin-bottom:50px;flex-wrap:wrap}
+  .tab{
+    padding:12px 26px;border-radius:50px;cursor:pointer;
+    background:var(--card);border:1px solid rgba(43,23,15,.1);
+    font-weight:500;font-size:14px;transition:.3s;color:var(--text);
+    backdrop-filter:blur(10px);
+  }
+  .tab.active,.tab:hover{
+    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    color:var(--cream);border-color:transparent;
+    box-shadow:0 10px 25px rgba(43,23,15,.25);transform:translateY(-2px);
+  }
+  .menu-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:26px;max-width:1200px;margin:0 auto;
+  }
+  .menu-card{
+    background:var(--card);backdrop-filter:blur(20px);
+    border-radius:24px;padding:30px;
+    border:1px solid rgba(245,197,66,.15);
+    transition:transform .4s,box-shadow .4s;
+    position:relative;overflow:hidden;
+  }
+  .menu-card::before{
+    content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+    background:radial-gradient(circle,rgba(245,197,66,.15),transparent 40%);
+    opacity:0;transition:opacity .4s;
+  }
+  .menu-card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(43,23,15,.2)}
+  .menu-card:hover::before{opacity:1}
+  .menu-card .emoji{font-size:40px;margin-bottom:14px}
+  .menu-card h4{font-size:20px;margin-bottom:8px;color:var(--text)}
+  .menu-card p{font-size:13px;opacity:.7;margin-bottom:16px;min-height:38px}
+  .price-badge{
+    display:inline-block;padding:8px 18px;border-radius:50px;
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    color:var(--chocolate);font-weight:700;font-size:15px;
+    box-shadow:0 8px 20px rgba(245,197,66,.35);
+    transition:transform .3s;
+  }
+  .menu-card:hover .price-badge{transform:scale(1.08)}
+  .tag{
+    position:absolute;top:16px;right:16px;
+    background:var(--primary);color:var(--gold);
+    padding:5px 12px;border-radius:20px;font-size:10px;
+    font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  }
+  .tag.best{background:var(--accent);color:#fff}
+
+  /* Featured */
+  .featured-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;max-width:1200px;margin:0 auto;
+  }
+  .featured-card{
+    position:relative;border-radius:24px;overflow:hidden;
+    aspect-ratio:4/5;cursor:pointer;
+    box-shadow:var(--shadow);
+  }
+  .featured-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+  .featured-card:hover img{transform:scale(1.1)}
+  .featured-card::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(43,23,15,.95) 0%,transparent 60%);
+  }
+  .featured-info{
+    position:absolute;bottom:0;left:0;right:0;padding:30px;z-index:2;color:#fff;
+  }
+  .featured-info h4{font-size:24px;margin-bottom:8px}
+  .featured-info .badge{
+    display:inline-block;background:var(--gold);color:var(--chocolate);
+    padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;
+    margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;
+  }
+
+  /* Gallery */
+  .gallery{background:var(--bg)}
+  .gallery-grid{
+    columns:3 280px;column-gap:20px;max-width:1200px;margin:0 auto;
+  }
+  .gallery-item{
+    break-inside:avoid;margin-bottom:20px;border-radius:20px;
+    overflow:hidden;cursor:pointer;position:relative;
+    box-shadow:0 15px 40px rgba(43,23,15,.12);
+  }
+  .gallery-item img{transition:transform .6s;width:100%}
+  .gallery-item:hover img{transform:scale(1.1)}
+  .gallery-item::after{
+    content:'\f00e';font-family:'Font Awesome 6 Free';font-weight:900;
+    position:absolute;inset:0;display:grid;place-items:center;color:#fff;
+    background:rgba(43,23,15,.6);opacity:0;transition:opacity .3s;font-size:30px;
+  }
+  .gallery-item:hover::after{opacity:1}
+
+  /* Lightbox */
+  .lightbox{
+    position:fixed;inset:0;background:rgba(15,8,5,.95);
+    display:none;align-items:center;justify-content:center;z-index:9999;
+    padding:40px;backdrop-filter:blur(10px);
+  }
+  .lightbox.open{display:flex;animation:fadeIn .3s}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .lightbox img{max-height:90vh;max-width:90vw;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.8)}
+  .lightbox .close{position:absolute;top:30px;right:30px;color:#fff;font-size:32px;cursor:pointer;background:none;border:none}
+
+  /* Why Choose */
+  .why{background:linear-gradient(135deg,rgba(59,35,20,.05),rgba(214,138,44,.05))}
+  .why-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:24px;max-width:1200px;margin:0 auto;
+  }
+  .why-card{
+    background:var(--card);backdrop-filter:blur(20px);
+    padding:36px 24px;border-radius:20px;text-align:center;
+    border:1px solid rgba(245,197,66,.15);
+    transition:transform .4s,box-shadow .4s;
+  }
+  .why-card:hover{transform:translateY(-8px);box-shadow:0 25px 50px rgba(43,23,15,.15)}
+  .why-icon{
+    width:70px;height:70px;margin:0 auto 20px;border-radius:20px;
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    display:grid;place-items:center;color:var(--chocolate);font-size:28px;
+    box-shadow:0 10px 30px rgba(245,197,66,.35);
+    animation:pulse 3s ease infinite;
+  }
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .why-card h4{font-size:18px;margin-bottom:8px}
+  .why-card p{font-size:13px;opacity:.75}
+
+  /* Stats */
+  .stats{background:linear-gradient(135deg,var(--primary),var(--chocolate));color:var(--cream);padding:80px 6%}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px;max-width:1200px;margin:0 auto;text-align:center}
+  .stat-num{font-family:'Playfair Display';font-size:60px;font-weight:900;color:var(--gold);line-height:1}
+  .stat-label{margin-top:10px;letter-spacing:2px;font-size:13px;text-transform:uppercase;opacity:.85}
+
+  /* Reviews */
+  .reviews{background:var(--bg);overflow:hidden}
+  .reviews-slider{max-width:900px;margin:0 auto;position:relative;height:280px}
+  .review-card{
+    position:absolute;inset:0;padding:40px;border-radius:24px;
+    background:var(--card);backdrop-filter:blur(20px);
+    border:1px solid rgba(245,197,66,.2);text-align:center;
+    opacity:0;transform:translateX(50px);transition:.6s;
+  }
+  .review-card.active{opacity:1;transform:translateX(0)}
+  .stars{color:var(--gold);font-size:20px;margin-bottom:16px;letter-spacing:4px}
+  .review-card blockquote{font-family:'Playfair Display';font-size:20px;font-style:italic;margin-bottom:20px;line-height:1.5}
+  .review-author{font-weight:600;color:var(--accent)}
+  .review-role{font-size:12px;opacity:.65}
+  .review-dots{display:flex;justify-content:center;gap:8px;margin-top:30px}
+  .review-dots span{width:8px;height:8px;border-radius:50%;background:rgba(43,23,15,.2);cursor:pointer;transition:.3s}
+  .review-dots span.active{background:var(--accent);width:24px;border-radius:20px}
+
+  /* Instagram */
+  .insta{background:linear-gradient(135deg,#fdf2f8,rgba(214,138,44,.05));text-align:center}
+  .dark .insta{background:linear-gradient(135deg,rgba(214,138,44,.08),rgba(59,35,20,.3))}
+  .insta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;max-width:1000px;margin:40px auto}
+  .insta-item{aspect-ratio:1;border-radius:16px;overflow:hidden;position:relative;cursor:pointer}
+  .insta-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .insta-item:hover img{transform:scale(1.15)}
+  .insta-item::after{
+    content:'\f16d';font-family:'Font Awesome 6 Brands';
+    position:absolute;inset:0;display:grid;place-items:center;
+    background:linear-gradient(135deg,rgba(214,138,44,.85),rgba(59,35,20,.85));
+    color:#fff;font-size:28px;opacity:0;transition:.3s;
+  }
+  .insta-item:hover::after{opacity:1}
+  .insta-btn{
+    background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff;
+    padding:14px 32px;border-radius:50px;font-weight:600;
+    display:inline-flex;align-items:center;gap:10px;margin-top:20px;
+    box-shadow:0 15px 35px rgba(253,29,29,.35);transition:.3s;border:none;cursor:pointer;
+  }
+  .insta-btn:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(253,29,29,.5)}
+
+  /* Location */
+  .location-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;
+    max-width:1200px;margin:0 auto;align-items:stretch;
+  }
+  .location-info{
+    background:var(--card);backdrop-filter:blur(20px);
+    padding:40px;border-radius:24px;
+    border:1px solid rgba(245,197,66,.15);
+  }
+  .location-info h3{font-size:28px;margin-bottom:20px;color:var(--accent)}
+  .location-info .addr{margin-bottom:20px;line-height:1.8;opacity:.85}
+  .location-info .addr i{color:var(--accent);margin-right:10px}
+  .location-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+  .location-btns .btn{padding:12px 20px;font-size:13px}
+  .map-wrap{border-radius:24px;overflow:hidden;box-shadow:var(--shadow);min-height:400px}
+  .map-wrap iframe{width:100%;height:100%;min-height:400px;border:0}
+  @media(max-width:800px){.location-grid{grid-template-columns:1fr}}
+
+  /* Contact */
+  .contact{text-align:center;background:linear-gradient(135deg,var(--primary),var(--chocolate));color:var(--cream)}
+  .contact .section-title h2{background:linear-gradient(135deg,var(--gold),#fff);-webkit-background-clip:text;color:transparent}
+  .contact-btns{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:30px}
+  .contact-btn{
+    background:rgba(255,255,255,.08);backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.15);color:var(--cream);
+    padding:20px 30px;border-radius:20px;
+    display:flex;align-items:center;gap:14px;
+    transition:.3s;cursor:pointer;font-size:14px;font-weight:500;
+  }
+  .contact-btn:hover{background:var(--gold);color:var(--chocolate);border-color:var(--gold);transform:translateY(-4px)}
+  .contact-btn i{font-size:22px}
+
+  /* Footer */
+  footer{background:var(--chocolate);color:var(--cream);padding:60px 6% 30px}
+  .footer-grid{
+    display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;
+    max-width:1200px;margin:0 auto 40px;
+  }
+  @media(max-width:800px){.footer-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
+  .footer-brand p{opacity:.7;margin-top:16px;font-size:14px}
+  footer h5{font-family:'Playfair Display';color:var(--gold);margin-bottom:20px;font-size:18px}
+  footer ul{list-style:none}
+  footer ul li{margin-bottom:10px;opacity:.75;font-size:14px;transition:.3s}
+  footer ul li:hover{opacity:1;color:var(--gold);padding-left:5px}
+  footer ul li a{cursor:pointer}
+  .social-links{display:flex;gap:12px;margin-top:16px}
+  .social-links a{
+    width:40px;height:40px;border-radius:50%;
+    display:grid;place-items:center;
+    background:rgba(245,197,66,.1);color:var(--gold);
+    transition:.3s;
+  }
+  .social-links a:hover{background:var(--gold);color:var(--chocolate);transform:translateY(-4px)}
+  .copyright{text-align:center;padding-top:30px;border-top:1px solid rgba(245,197,66,.1);font-size:13px;opacity:.6}
+
+  /* Floating buttons */
+  .float-btns{position:fixed;bottom:20px;right:20px;z-index:900;display:flex;flex-direction:column;gap:12px}
+  .float-btn{
+    width:52px;height:52px;border-radius:50%;
+    display:grid;place-items:center;color:#fff;font-size:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+    cursor:pointer;border:none;transition:transform .3s;
+    animation:floatBob 3s ease-in-out infinite;
+  }
+  .float-btn:hover{transform:scale(1.15)}
+  .float-btn.wa{background:#25d366;animation-delay:0s}
+  .float-btn.call{background:var(--accent);animation-delay:.5s}
+  .float-btn.menu{background:var(--primary);animation-delay:1s}
+  .float-btn.top{background:var(--gold);color:var(--chocolate);animation-delay:1.5s;opacity:0;pointer-events:none;transition:.3s}
+  .float-btn.top.show{opacity:1;pointer-events:auto}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .8s}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:600px){
+    section{padding:70px 5%}
+    .hero{padding-top:100px}
+    .float-btn{width:46px;height:46px;font-size:17px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor-glow" id="cursor"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="waffle-loader">🧇</div>
+  <div class="drip"></div>
+  <div class="loader-bar"><span></span></div>
+  <div class="loader-text">WAFFLE 'N' SHAKES</div>
+</div>
+
+<!-- Nav -->
+<nav id="nav">
+  <div class="logo"><i class="fas fa-mug-hot"></i> Waffle 'n' Shakes</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><button class="theme-toggle" id="themeBtn" aria-label="Toggle theme"><i class="fas fa-moon"></i></button></li>
+    <li><a href="tel:+919515295901"><button class="btn-order">Order Now</button></a></li>
+  </ul>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="particles" id="particles"></div>
+  <span class="floating-waffle" style="top:20%;left:8%">🧇</span>
+  <span class="floating-waffle" style="top:60%;right:10%;animation-delay:2s">🍫</span>
+  <span class="floating-waffle" style="bottom:20%;left:15%;animation-delay:4s">🥤</span>
+  <span class="floating-waffle" style="top:30%;right:20%;animation-delay:3s">🍨</span>
+
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-star"></i> Vijayawada's Premium Dessert Café</div>
+    <h1>Fresh Waffles.<br>Delicious Shakes.<br>Made With Love.</h1>
+    <p>Freshly prepared waffles, thick shakes and refreshing mocktails served daily in Vijayawada. A luxury cocoa experience in every bite.</p>
+    <div class="hero-btns">
+      <a href="#menu"><button class="btn btn-primary"><i class="fas fa-utensils"></i> Explore Menu</button></a>
+      <a href="https://maps.google.com/?q=Waffle+n+Shakes+Governor+Peta+Vijayawada" target="_blank"><button class="btn btn-outline"><i class="fas fa-map-marker-alt"></i> Get Directions</button></a>
+      <a href="tel:+919515295901"><button class="btn btn-outline"><i class="fas fa-phone"></i> Call Now</button></a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about reveal" id="about">
+  <div class="section-title">
+    <span class="eyebrow">Our Story</span>
+    <h2>Crafted With Cocoa & Care</h2>
+    <p>A cozy dessert destination in the heart of Governor Peta, Vijayawada — where every waffle is baked fresh and every shake is poured with passion.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=800&q=80" alt="Golden chocolate waffle stack" loading="lazy" />
+      <div class="about-badge"><strong>5+ Years</strong>Serving happiness</div>
+    </div>
+    <div class="about-content">
+      <h3>A Sweet Escape in Vijayawada</h3>
+      <p>At Waffle 'n' Shakes, we believe every dessert should tell a story. From our signature full-cake waffles to our thick, creamy shakes and vibrant mocktails, everything is crafted fresh to order.</p>
+      <p>We use premium chocolate, farm-fresh milk, and only the finest ingredients — because you deserve a treat that's as indulgent as it is unforgettable.</p>
+      <div class="about-features">
+        <div class="about-feature"><i class="fas fa-award"></i><div><strong>Premium Chocolate</strong><span style="font-size:13px;opacity:.7">Belgian & imported cocoa</span></div></div>
+        <div class="about-feature"><i class="fas fa-leaf"></i><div><strong>Fresh Daily</strong><span style="font-size:13px;opacity:.7">No preservatives</span></div></div>
+        <div class="about-feature"><i class="fas fa-heart"></i><div><strong>Made With Love</strong><span style="font-size:13px;opacity:.7">Every single order</span></div></div>
+        <div class="about-feature"><i class="fas fa-bolt"></i><div><strong>Fast Service</strong><span style="font-size:13px;opacity:.7">Hot & ready quick</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Menu -->
+<section class="menu reveal" id="menu">
+  <div class="section-title">
+    <span class="eyebrow">Our Menu</span>
+    <h2>The Sweetest Selection</h2>
+    <p>From full-cake waffles to icy mocktails and hearty combos — pick your indulgence.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-cat="waffles">Full Cake Waffles</button>
+    <button class="tab" data-cat="mocktails">Mocktails</button>
+    <button class="tab" data-cat="combos">Combos</button>
+  </div>
+
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- Featured -->
+<section class="reveal">
+  <div class="section-title">
+    <span class="eyebrow">Featured</span>
+    <h2>Signature Specials</h2>
+    <p>The favorites everyone comes back for.</p>
+  </div>
+  <div class="featured-grid" style="max-width:1200px;margin:0 auto">
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800&q=80" alt="Triple Chocolate Waffle" loading="lazy" />
+      <div class="featured-info">
+        <span class="badge">🔥 Best Seller</span>
+        <h4>Triple Chocolate Full Cake</h4>
+        <p style="opacity:.85;font-size:13px">Loaded with dark, milk & white chocolate.</p>
+      </div>
+    </div>
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&q=80" alt="Oreo Shake" loading="lazy" />
+      <div class="featured-info">
+        <span class="badge">👨‍🍳 Chef's Pick</span>
+        <h4>KitKat Oreo Combo</h4>
+        <p style="opacity:.85;font-size:13px">Waffle + shake + fries. Ultimate treat.</p>
+      </div>
+    </div>
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?w=800&q=80" alt="Strawberry Mocktail" loading="lazy" />
+      <div class="featured-info">
+        <span class="badge">✨ New</span>
+        <h4>Blue Star Mocktail</h4>
+        <p style="opacity:.85;font-size:13px">Refreshing, vibrant, Insta-worthy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery reveal" id="gallery">
+  <div class="section-title">
+    <span class="eyebrow">Gallery</span>
+    <h2>A Taste In Every Frame</h2>
+  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
+</section>
+
+<!-- Why -->
+<section class="why reveal">
+  <div class="section-title">
+    <span class="eyebrow">Why Us</span>
+    <h2>Why Choose Waffle 'n' Shakes</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-icon"><i class="fas fa-seedling"></i></div><h4>Fresh Ingredients</h4><p>Hand-picked, daily delivered.</p></div>
+    <div class="why-card"><div class="why-icon"><i class="fas fa-cookie-bite"></i></div><h4>Premium Chocolate</h4><p>Belgian-grade cocoa only.</p></div>
+    <div class="why-card"><div class="why-icon"><i class="fas fa-tag"></i></div><h4>Affordable Prices</h4><p>Luxury taste, everyday price.</p></div>
+    <div class="why-card"><div class="why-icon"><i class="fas fa-fire"></i></div><h4>Made Fresh</h4><p>Prepared to order, every time.</p></div>
+    <div class="why-card"><div class="why-icon"><i class="fas fa-bolt"></i></div><h4>Fast Service</h4><p>Hot & ready in minutes.</p></div>
+    <div class="why-card"><div class="why-icon"><i class="fas fa-users"></i></div><h4>Family Friendly</h4><p>Warm space for everyone.</p></div>
+    <div class="why-card"><div class="why-icon"><i class="fab fa-instagram"></i></div><h4>Insta Worthy</h4><p>Every plate is picture-ready.</p></div>
+    <div class="why-card"><div class="why-icon"><i class="fas fa-heart"></i></div><h4>Made With Love</h4><p>You can taste the difference.</p></div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="stats reveal">
+  <div class="stats-grid">
+    <div><div class="stat-num" data-target="15000">0</div><div class="stat-label">Happy Customers</div></div>
+    <div><div class="stat-num" data-target="40">0</div><div class="stat-label">Menu Items</div></div>
+    <div><div class="stat-num" data-target="5">0</div><div class="stat-label">Years of Sweetness</div></div>
+    <div><div class="stat-num" data-target="4.9">0</div><div class="stat-label">Average Rating</div></div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="reviews reveal" id="reviews">
+  <div class="section-title">
+    <span class="eyebrow">Reviews</span>
+    <h2>Loved By Vijayawada</h2>
+  </div>
+  <div class="reviews-slider" id="reviewSlider"></div>
+  <div class="review-dots" id="reviewDots"></div>
+</section>
+
+<!-- Instagram -->
+<section class="insta reveal">
+  <div class="section-title">
+    <span class="eyebrow">Instagram</span>
+    <h2>Follow The Cocoa Journey</h2>
+    <p>@waffle_n_shakes0</p>
+  </div>
+  <div class="insta-grid" id="instaGrid"></div>
+  <a href="https://www.instagram.com/waffle_n_shakes0" target="_blank" rel="noopener">
+    <button class="insta-btn"><i class="fab fa-instagram"></i> Follow On Instagram</button>
+  </a>
+</section>
+
+<!-- Location -->
+<section class="reveal" id="location">
+  <div class="section-title">
+    <span class="eyebrow">Visit Us</span>
+    <h2>Find Our Café</h2>
+  </div>
+  <div class="location-grid">
+    <div class="location-info">
+      <h3><i class="fas fa-map-pin"></i> Our Address</h3>
+      <div class="addr">
+        <p><i class="fas fa-location-dot"></i>Govindarajulu Street</p>
+        <p><i class="fas fa-city"></i>Governor Peta, Vijayawada</p>
+        <p><i class="fas fa-flag"></i>Andhra Pradesh — 520002</p>
+        <p><i class="fas fa-phone"></i>+91 95152 95901</p>
+        <p><i class="fas fa-clock"></i>Open Daily · 11:00 AM – 11:00 PM</p>
+      </div>
+      <div class="location-btns">
+        <a href="https://maps.google.com/?q=Governor+Peta+Vijayawada+Waffle+n+Shakes" target="_blank"><button class="btn btn-primary"><i class="fas fa-directions"></i> Navigate</button></a>
+        <a href="tel:+919515295901"><button class="btn btn-outline" style="color:var(--text);border-color:rgba(43,23,15,.2)"><i class="fas fa-phone"></i> Call</button></a>
+        <a href="https://wa.me/919515295901" target="_blank"><button class="btn btn-outline" style="color:var(--text);border-color:rgba(43,23,15,.2)"><i class="fab fa-whatsapp"></i> WhatsApp</button></a>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <iframe loading="lazy" src="https://www.google.com/maps?q=Governor+Peta+Vijayawada&output=embed" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact reveal" id="contact">
+  <div class="section-title">
+    <span class="eyebrow" style="color:var(--gold)">Contact</span>
+    <h2>Let's Chat</h2>
+    <p style="color:rgba(255,247,238,.75)">We'd love to hear from you. Reach us any way you like.</p>
+  </div>
+  <div class="contact-btns">
+    <a href="tel:+919515295901" class="contact-btn"><i class="fas fa-phone"></i> +91 95152 95901</a>
+    <a href="https://wa.me/919515295901" target="_blank" class="contact-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://maps.google.com/?q=Governor+Peta+Vijayawada" target="_blank" class="contact-btn"><i class="fas fa-map-marker-alt"></i> Google Maps</a>
+    <a href="https://www.instagram.com/waffle_n_shakes0" target="_blank" class="contact-btn"><i class="fab fa-instagram"></i> Instagram</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="color:var(--gold)"><i class="fas fa-mug-hot"></i> Waffle 'n' Shakes</div>
+      <p>Vijayawada's premium destination for handcrafted waffles, thick shakes and vibrant mocktails.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/waffle_n_shakes0" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/919515295901" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+919515295901" aria-label="Call"><i class="fas fa-phone"></i></a>
+        <a href="https://maps.google.com/?q=Governor+Peta+Vijayawada" target="_blank" aria-label="Map"><i class="fas fa-map-marker-alt"></i></a>
+      </div>
+    </div>
+    <div>
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Opening Hours</h5>
+      <ul>
+        <li>Mon – Fri: 11 AM – 11 PM</li>
+        <li>Saturday: 11 AM – 12 AM</li>
+        <li>Sunday: 11 AM – 12 AM</li>
+        <li>Holidays: 12 PM – 11 PM</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Reach Us</h5>
+      <ul>
+        <li>Govindarajulu Street</li>
+        <li>Governor Peta, Vijayawada</li>
+        <li>Andhra Pradesh — 520002</li>
+        <li>+91 95152 95901</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">© <span id="year"></span> Waffle 'n' Shakes · All Rights Reserved · Crafted with 🍫 in Vijayawada</div>
+</footer>
+
+<!-- Floating buttons -->
+<div class="float-btns">
+  <a href="https://wa.me/919515295901" target="_blank" aria-label="WhatsApp"><button class="float-btn wa"><i class="fab fa-whatsapp"></i></button></a>
+  <a href="tel:+919515295901" aria-label="Call"><button class="float-btn call"><i class="fas fa-phone"></i></button></a>
+  <a href="#menu" aria-label="Menu"><button class="float-btn menu"><i class="fas fa-utensils"></i></button></a>
+  <button class="float-btn top" id="topBtn" aria-label="Top"><i class="fas fa-arrow-up"></i></button>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox"><button class="close" id="lightboxClose"><i class="fas fa-times"></i></button><img id="lightboxImg" alt="Gallery image" /></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+// Loader
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('hide'),2200);
+});
+
+// Year
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Particles
+const p=document.getElementById('particles');
+for(let i=0;i<30;i++){
+  const el=document.createElement('div');
+  el.className='particle';
+  const s=Math.random()*10+4;
+  el.style.width=s+'px';el.style.height=s+'px';
+  el.style.left=Math.random()*100+'%';
+  el.style.animationDuration=(Math.random()*15+10)+'s';
+  el.style.animationDelay=(Math.random()*10)+'s';
+  p.appendChild(el);
+}
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60);
+  document.getElementById('topBtn').classList.toggle('show',window.scrollY>500);
+});
+document.getElementById('menuToggle').onclick=()=>document.getElementById('navLinks').classList.toggle('open');
+document.querySelectorAll('.nav-links a').forEach(a=>a.onclick=()=>document.getElementById('navLinks').classList.remove('open'));
+
+// Theme
+const themeBtn=document.getElementById('themeBtn');
+themeBtn.onclick=()=>{
+  document.body.classList.toggle('dark');
+  themeBtn.innerHTML=document.body.classList.contains('dark')?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';
+};
+
+// Top
+document.getElementById('topBtn').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// Ripple
+document.querySelectorAll('.btn,.btn-order,.insta-btn').forEach(b=>{
+  b.addEventListener('click',e=>{
+    const r=document.createElement('span');r.className='ripple';
+    const rect=b.getBoundingClientRect();
+    const size=Math.max(rect.width,rect.height);
+    r.style.width=r.style.height=size+'px';
+    r.style.left=(e.clientX-rect.left-size/2)+'px';
+    r.style.top=(e.clientY-rect.top-size/2)+'px';
+    b.appendChild(r);setTimeout(()=>r.remove(),600);
+  });
+});
+
+// Cursor
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+
+// Menu data
+const menuData={
+  waffles:[
+    {n:'Classic Vanilla Full Cake',p:149,d:'Buttery vanilla waffle stacked into a full cake.',emoji:'🧇',tag:''},
+    {n:'Triple Chocolate Full Cake',p:189,d:'Dark, milk & white chocolate overload.',emoji:'🍫',tag:'best'},
+    {n:'Dark Chocolate Full Cake',p:189,d:'Rich cocoa layered like a dream.',emoji:'🍩',tag:''},
+    {n:'Almond Full Cake',p:189,d:'Crunchy toasted almonds & chocolate.',emoji:'🌰',tag:'new'},
+  ],
+  mocktails:[
+    {n:'Strawberry',p:79,d:'Cold, fruity and refreshingly sweet.',emoji:'🍓',tag:''},
+    {n:'Watermelon',p:79,d:'Juicy summer in every sip.',emoji:'🍉',tag:''},
+    {n:'Green Apple',p:79,d:'Tangy, crisp and cooling.',emoji:'🍏',tag:''},
+    {n:'Blue Star',p:79,d:'Signature blue burst — Instagram gold.',emoji:'💙',tag:'best'},
+  ],
+  combos:[
+    {n:'Burger + Dark & White Waffle + Strawberry',p:199,d:'Veg burger, dual waffle, strawberry mocktail.',emoji:'🍔',tag:'best'},
+    {n:'Burger + Choco Overload + Blue Star',p:199,d:'Veg burger, choco waffle, blue star mocktail.',emoji:'🥤',tag:''},
+    {n:'Almond Waffle + Chocolate Shake + Fries',p:199,d:'Salted fries, thick shake, almond waffle.',emoji:'🍟',tag:''},
+    {n:'KitKat Waffle + Oreo Shake + Peri Fries',p:199,d:'KitKat waffle, oreo shake, peri peri fries.',emoji:'🍪',tag:'new'},
+  ]
+};
+const menuGrid=document.getElementById('menuGrid');
+function renderMenu(cat){
+  menuGrid.innerHTML=menuData[cat].map(m=>`
+    <div class="menu-card">
+      ${m.tag?`<span class="tag ${m.tag==='best'?'best':''}">${m.tag==='best'?'★ Best':'✨ New'}</span>`:''}
+      <div class="emoji">${m.emoji}</div>
+      <h4>${m.n}</h4>
+      <p>${m.d}</p>
+      <span class="price-badge">₹${m.p}</span>
+    </div>`).join('');
+}
+renderMenu('waffles');
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    renderMenu(t.dataset.cat);
+  };
+});
+
+// Gallery
+const galleryImgs=[
+  'https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=600&q=80',
+  'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&q=80',
+  'https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?w=600&q=80',
+  'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80',
+  'https://images.unsplash.com/photo-1587314168485-3236d6710814?w=600&q=80',
+  'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80',
+  'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=600&q=80',
+  'https://images.unsplash.com/photo-1568051243851-f9b136146e97?w=600&q=80',
+  'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80',
+];
+const gg=document.getElementById('gallery-grid');
+gg.innerHTML=galleryImgs.map(src=>`<div class="gallery-item"><img src="${src}" loading="lazy" alt="Dessert"></div>`).join('');
+document.querySelectorAll('.gallery-item img').forEach(img=>{
+  img.parentElement.onclick=()=>{
+    document.getElementById('lightboxImg').src=img.src.replace('w=600','w=1400');
+    document.getElementById('lightbox').classList.add('open');
+  };
+});
+document.getElementById('lightboxClose').onclick=()=>document.getElementById('lightbox').classList.remove('open');
+document.getElementById('lightbox').onclick=e=>{if(e.target.id==='lightbox')e.currentTarget.classList.remove('open')};
+
+// Insta
+const instaImgs=galleryImgs.slice(0,6);
+document.getElementById('instaGrid').innerHTML=instaImgs.map(src=>`<a href="https://www.instagram.com/waffle_n_shakes0" target="_blank" class="insta-item"><img src="${src}" loading="lazy" alt="Instagram post"></a>`).join('');
+
+// Reviews
+const reviews=[
+  {t:"Absolutely divine! The triple chocolate waffle is a dream — and the vibe is straight out of a boutique café.",n:"Ananya R.",r:"Regular"},
+  {t:"Best mocktails in Vijayawada. The Blue Star is my go-to and their combos are a total steal.",n:"Rahul V.",r:"Foodie"},
+  {t:"The service is quick, the desserts are Instagram gold, and the chocolate is legit premium. 10/10.",n:"Sneha K.",r:"Blogger"},
+  {t:"We came for a birthday and left obsessed. The full cake waffles are unlike anything else in the city.",n:"Karthik M.",r:"Family Guest"},
+];
+const rs=document.getElementById('reviewSlider');
+const rd=document.getElementById('reviewDots');
+rs.innerHTML=reviews.map((r,i)=>`<div class="review-card ${i===0?'active':''}"><div class="stars">★★★★★</div><blockquote>"${r.t}"</blockquote><div class="review-author">${r.n}</div><div class="review-role">${r.r}</div></div>`).join('');
+rd.innerHTML=reviews.map((_,i)=>`<span class="${i===0?'active':''}" data-i="${i}"></span>`).join('');
+let ri=0;
+function showReview(i){
+  document.querySelectorAll('.review-card').forEach((c,x)=>c.classList.toggle('active',x===i));
+  document.querySelectorAll('#reviewDots span').forEach((c,x)=>c.classList.toggle('active',x===i));
+  ri=i;
+}
+document.querySelectorAll('#reviewDots span').forEach(s=>s.onclick=()=>showReview(+s.dataset.i));
+setInterval(()=>showReview((ri+1)%reviews.length),4500);
+
+// Reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Stat counters
+const cio=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting||e.target.dataset.done)return;
+    e.target.dataset.done='1';
+    const target=parseFloat(e.target.dataset.target);
+    const isDec=target%1!==0;
+    let cur=0;const step=target/60;
+    const iv=setInterval(()=>{
+      cur+=step;
+      if(cur>=target){cur=target;clearInterval(iv)}
+      e.target.textContent=isDec?cur.toFixed(1):Math.floor(cur).toLocaleString()+'+';
+    },25);
+  });
+},{threshold:.4});
+document.querySelectorAll('.stat-num').forEach(n=>cio.observe(n));
+
+// GSAP hero
+if(window.gsap){
+  gsap.from('.hero-badge',{y:20,opacity:0,duration:.8,delay:2.4});
+  gsap.from('.hero h1',{y:40,opacity:0,duration:1,delay:2.6});
+  gsap.from('.hero p',{y:30,opacity:0,duration:.9,delay:2.9});
+  gsap.from('.hero-btns .btn',{y:30,opacity:0,duration:.7,delay:3.1,stagger:.15});
+}
+</script>
+</body>
+</html>
