@@ -348,7 +348,7 @@
   .menu-card::before{
     content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
     background:radial-gradient(circle,rgba(245,197,66,.15),transparent 40%);
-    opacity:0;transition:opacity .4s;
+    opacity:0;transition:opacity .4s;pointer-events:none;
   }
   .menu-card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(43,23,15,.2)}
   .menu-card:hover::before{opacity:1}
@@ -667,7 +667,7 @@ nav.scrolled .nav-cart{color:var(--text);border-color:rgba(43,23,15,.2)}
     <li><a href="#contact">Contact</a></li>
     <li><a href="#location">Location</a></li>
     <li><button class="theme-toggle" id="themeBtn" aria-label="Toggle theme"><i class="fas fa-moon"></i></button></li>
-    <li><a href="tel:+919515295901"><button class="btn-order">Order Now</button></a></li>
+    <li><a href="https://wa.me/919515295901" target="_blank" rel="noopener"><button class="btn-order">Order Now</button></a></li>
     <li><button class="nav-cart" id="cartBtn" aria-label="Open cart"><i class="fas fa-shopping-bag"></i><span class="cart-badge" id="cartBadge">0</span></button></li>
   </ul>
   <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
@@ -1015,33 +1015,32 @@ const menuData={
     {n:'KitKat Waffle + Oreo Shake + Peri Fries',p:199,d:'KitKat waffle, oreo shake, peri peri fries.',emoji:'🍪',tag:'new'},
   ]
 };
+// Build a flat lookup of all menu items keyed by a unique id.
+// The cart references items by these ids only.
+window.MENU_ITEMS={};
+Object.keys(menuData).forEach(cat=>{
+  menuData[cat].forEach((m,mi)=>{
+    const id=cat+'-'+mi;
+    window.MENU_ITEMS[id]={id,name:m.n,price:m.p,emoji:m.emoji};
+  });
+});
+
 const menuGrid=document.getElementById('menuGrid');
 function renderMenu(cat){
-  menuGrid.innerHTML=menuData[cat].map(m=>`
-    <div class="menu-card" data-name="${m.n.replace(/"/g,'&quot;')}" data-price="${m.p}" data-emoji="${m.emoji}">
+  menuGrid.innerHTML=menuData[cat].map((m,mi)=>{
+    const id=cat+'-'+mi;
+    return `
+    <div class="menu-card">
       ${m.tag?`<span class="tag ${m.tag==='best'?'best':''}">${m.tag==='best'?'★ Best':'✨ New'}</span>`:''}
       <div class="emoji">${m.emoji}</div>
       <h4>${m.n}</h4>
       <p>${m.d}</p>
       <div class="card-foot">
         <span class="price-badge">₹${m.p}</span>
-        <button class="btn-add" type="button"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+        <button class="btn-add" type="button" onclick="addToCart('${id}')"><i class="fas fa-cart-plus"></i> Add to Cart</button>
       </div>
-    </div>`).join('');
-  // Redundant direct binding (in addition to the delegated document
-  // listener in the cart script) so Add to Cart works even if event
-  // delegation is ever interfered with by other code/extensions.
-  menuGrid.querySelectorAll('.btn-add').forEach(btn=>{
-    btn.addEventListener('click',function(e){
-      const card=this.closest('.menu-card');
-      if(!card)return;
-      if(typeof window.addToCart==='function'){
-        e.stopPropagation(); // handled here, so don't also let it hit the document-level delegated listener
-        window.addToCart({name:card.dataset.name,price:+card.dataset.price,emoji:card.dataset.emoji},this);
-      }
-      // else: let it bubble up to the document-level delegated listener as a fallback
-    });
-  });
+    </div>`;
+  }).join('');
 }
 renderMenu('waffles');
 document.querySelectorAll('.tab').forEach(t=>{
@@ -1148,184 +1147,216 @@ if(window.gsap){
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
-(function(){
-  const WA_NUMBER='919515295901';
-  const LS_KEY='wns_cart_v1';
+/* ============================================================
+   Simple Shopping Cart
+   ------------------------------------------------------------
+   One array. One item shape: { id, name, price, qty }.
+   All functions are attached to window so onclick="..." works.
+   ============================================================ */
 
-  // Normalize any single cart line into a safe, well-typed shape.
-  // Guards against corrupt/legacy localStorage data (e.g. a previous
-  // cart version that stored an object instead of an array) which was
-  // silently breaking .reduce/.map/.find/.push/.splice on load.
-  function sanitizeLine(it){
-    if(!it||typeof it!=='object')return null;
-    const name=typeof it.name==='string'?it.name.trim():'';
-    const price=Number(it.price);
-    const qty=Math.floor(Number(it.qty));
-    const emoji=typeof it.emoji==='string'?it.emoji:'🧇';
-    if(!name||!isFinite(price)||price<0||!isFinite(qty)||qty<=0)return null;
-    return {name,price,emoji,qty};
+// The one and only cart array
+var cart = [];
+
+// WhatsApp number for orders
+var WA_NUMBER = '919515295901';
+
+// -------- Storage --------
+function loadCart(){
+  try{
+    var raw = localStorage.getItem('cart');
+    var arr = raw ? JSON.parse(raw) : [];
+    if(!Array.isArray(arr)) arr = [];
+    // keep only well-formed items
+    cart = arr.filter(function(i){
+      return i && i.id && i.name && typeof i.price === 'number' && i.qty > 0;
+    });
+  }catch(e){ cart = []; }
+}
+
+function saveCart(){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// -------- Cart operations --------
+function addToCart(id){
+  var product = window.MENU_ITEMS && window.MENU_ITEMS[id];
+  if(!product) return;
+
+  // Increase quantity if already in cart, otherwise push a new line
+  var existing = cart.find(function(i){ return i.id === id; });
+  if(existing){
+    existing.qty += 1;
+  }else{
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      qty: 1
+    });
   }
+  saveCart();
+  renderCart();
+  updateBadge();
+}
 
-  function loadCart(){
-    let raw=null;
-    try{raw=JSON.parse(localStorage.getItem(LS_KEY))}catch(e){raw=null}
-    let list=[];
-    if(Array.isArray(raw)){
-      list=raw;
-    }else if(raw&&typeof raw==='object'){
-      // Legacy object-keyed cart {id:{name,price,emoji,qty}} -> migrate to array
-      list=Object.values(raw);
-    }
-    return list.map(sanitizeLine).filter(Boolean);
+function removeItem(id){
+  cart = cart.filter(function(i){ return i.id !== id; });
+  saveCart();
+  renderCart();
+  updateBadge();
+}
+
+function increaseQty(id){
+  var item = cart.find(function(i){ return i.id === id; });
+  if(!item) return;
+  item.qty += 1;
+  saveCart();
+  renderCart();
+  updateBadge();
+}
+
+function decreaseQty(id){
+  var item = cart.find(function(i){ return i.id === id; });
+  if(!item) return;
+  item.qty -= 1;
+  if(item.qty <= 0){
+    removeItem(id);
+    return;
   }
+  saveCart();
+  renderCart();
+  updateBadge();
+}
 
-  let cart=loadCart();
+function clearCart(){
+  cart = [];
+  saveCart();
+  renderCart();
+  updateBadge();
+}
 
-  const $badge=document.getElementById('cartBadge');
-  const $body=document.getElementById('cartBody');
-  const $foot=document.getElementById('cartFoot');
-  const $total=document.getElementById('cartTotal');
-  const $drawer=document.getElementById('cartDrawer');
-  const $overlay=document.getElementById('cartOverlay');
-  const $toastWrap=document.getElementById('toastWrap');
+// -------- Badge (total quantity) --------
+function updateBadge(){
+  var badge = document.getElementById('cartBadge');
+  if(!badge) return;
+  var totalQty = 0;
+  for(var i = 0; i < cart.length; i++) totalQty += cart[i].qty;
+  badge.textContent = totalQty;
+}
 
-  // Bail out gracefully if the cart markup isn't present, instead of
-  // throwing and silently breaking the rest of this script.
-  if(!$badge||!$body||!$foot||!$total||!$drawer||!$overlay||!$toastWrap){
-    console.error('Cart: required DOM elements missing, cart system disabled.');
+// -------- Render cart drawer --------
+function renderCart(){
+  var body  = document.getElementById('cartBody');
+  var foot  = document.getElementById('cartFoot');
+  var total = document.getElementById('cartTotal');
+  if(!body || !foot || !total) return;
+
+  if(cart.length === 0){
+    body.innerHTML =
+      '<div class="cart-empty">' +
+        '<i class="fas fa-shopping-basket"></i>' +
+        '<p>Your cart is empty.<br>Add some delicious treats!</p>' +
+      '</div>';
+    foot.style.display = 'none';
     return;
   }
 
-  const save=()=>{try{localStorage.setItem(LS_KEY,JSON.stringify(cart))}catch(e){console.error('Cart: failed to save to localStorage',e)}};
-  const count=()=>cart.reduce((a,b)=>a+b.qty,0);
-  const total=()=>cart.reduce((a,b)=>a+b.qty*b.price,0);
-  const updateCartBadge=()=>{$badge.textContent=count()};
-  const bumpBadge=()=>{$badge.classList.remove('bump');void $badge.offsetWidth;$badge.classList.add('bump')};
+  var html = '';
+  var grand = 0;
 
-  function renderCart(){
-    updateCartBadge();
-    if(!cart.length){
-      $body.innerHTML='<div class="cart-empty"><i class="fas fa-shopping-basket"></i><p>Your cart is empty.<br>Add some delicious treats!</p></div>';
-      $foot.style.display='none';return;
-    }
-    $body.innerHTML=cart.map((it,i)=>`
-      <div class="cart-line">
-        <div class="thumb">${it.emoji||'🧇'}</div>
-        <div class="info">
-          <h5>${it.name}</h5>
-          <div class="lp">₹${it.price} × ${it.qty} = ₹${it.price*it.qty}</div>
-          <div class="qty-ctrl">
-            <button data-a="dec" data-i="${i}" aria-label="Decrease">−</button>
-            <span>${it.qty}</span>
-            <button data-a="inc" data-i="${i}" aria-label="Increase">+</button>
-          </div>
-        </div>
-        <button class="line-remove" data-a="rm" data-i="${i}" aria-label="Remove"><i class="fas fa-trash-alt"></i></button>
-      </div>`).join('');
-    $foot.style.display='block';
-    $total.textContent='₹'+total();
+  for(var i = 0; i < cart.length; i++){
+    var item = cart[i];
+    var lineTotal = item.price * item.qty;
+    grand += lineTotal;
+
+    var emoji = (window.MENU_ITEMS && window.MENU_ITEMS[item.id] && window.MENU_ITEMS[item.id].emoji) || '🧇';
+
+    html +=
+      '<div class="cart-line">' +
+        '<div class="thumb">' + emoji + '</div>' +
+        '<div class="info">' +
+          '<h5>' + item.name + '</h5>' +
+          '<div class="lp">₹' + item.price + ' × ' + item.qty + ' = ₹' + lineTotal + '</div>' +
+          '<div class="qty-ctrl">' +
+            '<button type="button" onclick="decreaseQty(\'' + item.id + '\')" aria-label="Decrease">−</button>' +
+            '<span>' + item.qty + '</span>' +
+            '<button type="button" onclick="increaseQty(\'' + item.id + '\')" aria-label="Increase">+</button>' +
+          '</div>' +
+        '</div>' +
+        '<button class="line-remove" type="button" onclick="removeItem(\'' + item.id + '\')" aria-label="Remove">' +
+          '<i class="fas fa-trash-alt"></i>' +
+        '</button>' +
+      '</div>';
   }
 
-  function toast(msg){
-    const t=document.createElement('div');
-    t.className='toast';
-    t.innerHTML='<i class="fas fa-check-circle"></i> '+msg;
-    $toastWrap.appendChild(t);
-    requestAnimationFrame(()=>t.classList.add('show'));
-    setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400)},2000);
+  body.innerHTML = html;
+  total.textContent = '₹' + grand;
+  foot.style.display = 'block';
+}
+
+// -------- Open / close drawer --------
+function openCart(){
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+}
+
+// -------- WhatsApp order --------
+function orderWhatsApp(){
+  if(cart.length === 0){
+    alert('Your cart is empty.');
+    return;
   }
 
-  function flyToCart(srcEl,emoji){
-    const cartBtn=document.getElementById('cartBtn');
-    if(!srcEl||!cartBtn)return;
-    const card=srcEl.closest('.menu-card');
-    const emojiEl=card&&card.querySelector('.emoji');
-    const from=(emojiEl||srcEl).getBoundingClientRect();
-    const to=cartBtn.getBoundingClientRect();
-    const fly=document.createElement('div');
-    fly.className='fly-item';
-    fly.textContent=emoji||'🧇';
-    fly.style.left=(from.left+from.width/2-32)+'px';
-    fly.style.top=(from.top+from.height/2-32)+'px';
-    document.body.appendChild(fly);
-    requestAnimationFrame(()=>{
-      fly.style.left=(to.left+to.width/2-32)+'px';
-      fly.style.top=(to.top+to.height/2-32)+'px';
-      fly.style.transform='scale(.15) rotate(360deg)';
-      fly.style.opacity='0';
-    });
-    setTimeout(()=>fly.remove(),1100);
+  var lines = ['Hello,', '', "I'd like to order", ''];
+  var grand = 0;
+
+  for(var i = 0; i < cart.length; i++){
+    var it = cart[i];
+    var lineTotal = it.price * it.qty;
+    grand += lineTotal;
+    lines.push((i + 1) + '.');
+    lines.push(it.name + ' x' + it.qty);
+    lines.push('₹' + lineTotal);
+    lines.push('');
   }
 
-  function add(item,srcEl){
-    const clean=sanitizeLine({...item,qty:1});
-    if(!clean){console.error('Cart: rejected invalid item',item);return;}
-    const ex=cart.find(x=>x.name===clean.name);
-    if(ex)ex.qty++;else cart.push(clean);
-    save();renderCart();bumpBadge();
-    flyToCart(srcEl,clean.emoji);
-    toast('Added to Cart');
-  }
+  lines.push('Total ₹' + grand);
+  lines.push('');
+  lines.push('Please confirm my order.');
 
-  // Expose on window: a redundant safety net so Add to Cart still works
-  // even if something outside this closure needs to reach it directly.
-  window.addToCart=add;
-  window.renderCart=renderCart;
-  window.updateCartBadge=updateCartBadge;
-  window.saveCart=save;
-  window.loadCart=loadCart;
+  var url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+  window.open(url, '_blank');
+}
 
-  const openCart=()=>{$drawer.classList.add('open');$overlay.classList.add('open');$drawer.setAttribute('aria-hidden','false')};
-  const closeCart=()=>{$drawer.classList.remove('open');$overlay.classList.remove('open');$drawer.setAttribute('aria-hidden','true')};
+// -------- Expose everything for inline onclick handlers --------
+window.addToCart    = addToCart;
+window.removeItem   = removeItem;
+window.increaseQty  = increaseQty;
+window.decreaseQty  = decreaseQty;
+window.clearCart    = clearCart;
+window.renderCart   = renderCart;
+window.updateBadge  = updateBadge;
+window.loadCart     = loadCart;
+window.saveCart     = saveCart;
+window.orderWhatsApp= orderWhatsApp;
+window.openCart     = openCart;
+window.closeCart    = closeCart;
 
-  document.getElementById('cartBtn').addEventListener('click',openCart);
-  document.getElementById('cartCloseBtn').addEventListener('click',closeCart);
-  $overlay.addEventListener('click',closeCart);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});
+// -------- Wire up static buttons directly (no delegation) --------
+document.getElementById('cartBtn').addEventListener('click', openCart);
+document.getElementById('cartCloseBtn').addEventListener('click', closeCart);
+document.getElementById('cartOverlay').addEventListener('click', closeCart);
+document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+document.getElementById('waOrderBtn').addEventListener('click', orderWhatsApp);
 
-  $body.addEventListener('click',e=>{
-    const b=e.target.closest('button[data-a]');if(!b)return;
-    const i=+b.dataset.i,a=b.dataset.a;
-    if(!Number.isInteger(i)||!cart[i])return;
-    if(a==='inc')cart[i].qty++;
-    else if(a==='dec'){cart[i].qty--;if(cart[i].qty<=0)cart.splice(i,1)}
-    else if(a==='rm')cart.splice(i,1);
-    save();renderCart();
-  });
-
-  document.getElementById('clearCartBtn').addEventListener('click',()=>{
-    if(!cart.length)return;
-    cart=[];save();renderCart();toast('Cart cleared');
-  });
-
-  function generateWhatsAppOrder(){
-    if(!cart.length){toast('Cart is empty');return null;}
-    const sep='--------------------------------';
-    const lines=['Hello,','','I would like to order',sep];
-    cart.forEach((it,i)=>{
-      lines.push(`${i+1}. ${it.name}`,`   Qty : ${it.qty}`,`   ₹${it.price*it.qty}`,sep);
-    });
-    lines.push(`Total : ₹${total()}`,sep,'Name : ','Phone : ','Table Number (Optional) : ','','Please confirm my order.');
-    const text=encodeURIComponent(lines.join('\n'));
-    return `https://wa.me/${WA_NUMBER}?text=${text}`;
-  }
-  window.generateWhatsAppOrder=generateWhatsAppOrder;
-
-  document.getElementById('waOrderBtn').addEventListener('click',()=>{
-    const url=generateWhatsAppOrder();
-    if(url)window.open(url,'_blank');
-  });
-
-  // Primary binding: delegated listener on document (works for every
-  // card, including any re-rendered after category tab switches).
-  document.addEventListener('click',e=>{
-    const btn=e.target.closest('.btn-add');if(!btn)return;
-    const card=btn.closest('.menu-card');if(!card)return;
-    add({name:card.dataset.name,price:+card.dataset.price,emoji:card.dataset.emoji},btn);
-  });
-
-  renderCart();
-})();
+// -------- Boot: restore from localStorage and paint UI --------
+loadCart();
+renderCart();
+updateBadge();
 </script>
 
 </body>
